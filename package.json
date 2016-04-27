@@ -1,0 +1,44 @@
+{
+  "name": "fasterfaster",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "reset": "watchman watch-del-all && rm -rf node_modules/ && npm cache clean && npm prune && npm i",
+    "generate-apk": "curl 'http://localhost:8081/index.android.bundle?platform=android' -dev=false -o 'android/app/src/main/assets/index.android.bundle' && android/gradlew assembleRelease -p android/",
+    "lint": "eslint src",
+    "test": "mocha --opts tests/mocha.opts tests/ --recursive",
+    "lintest": "eslint src && mocha --opts tests/mocha.opts tests/ --recursive"
+  },
+  "dependencies": {
+    "lodash": "^4.11.1",
+    "ramda": "^0.21.0",
+    "react": "^0.14.8",
+    "react-native": "^0.24.1",
+    "react-native-animatable": "^0.5.2",
+    "react-native-vector-icons": "^1.3.4",
+    "react-redux": "^4.4.4",
+    "redux": "^3.4.0",
+    "redux-logger": "^2.6.1",
+    "redux-saga": "^0.9.5",
+    "seamless-immutable": "^6.0.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^6.0.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-react-native": "^1.5.6",
+    "chai": "^3.5.0",
+    "chai-immutable": "^1.5.4",
+    "deep-freeze": "0.0.1",
+    "eslint": "^2.7.0",
+    "eslint-config-standard": "^5.1.0",
+    "eslint-config-standard-jsx": "^1.1.1",
+    "eslint-plugin-import": "^1.4.0",
+    "eslint-plugin-promise": "^1.1.0",
+    "eslint-plugin-react": "^4.3.0",
+    "eslint-plugin-standard": "^1.3.2",
+    "fetch-mock": "^4.3.1",
+    "mocha": "^2.4.5",
+    "proxyquire": "^1.7.4"
+  }
+}
