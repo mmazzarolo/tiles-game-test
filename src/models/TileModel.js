@@ -20,7 +20,12 @@ export default class TileModel {
   }
 
   stop () {
-    this.isActive = false
+    if (this.isActive) {
+      this.isActive = false
+      this.store.incrementScore()
+    } else {
+      this.store.popOneHeart()
+    }
   }
 
   toJS () {

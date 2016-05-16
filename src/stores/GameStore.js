@@ -6,6 +6,10 @@ import { times, delay } from '../utils'
 
 export default class GameStore {
   @observable tiles = []
+  @observable score = 0
+  @observable hearts = 5
+  @observable difficulty = 100
+  @observable isPlaying = false
 
   constructor () {
     times(BOARD_ROWS * BOARD_COLUMNS, (n) => {
@@ -18,11 +22,36 @@ export default class GameStore {
     })
   }
 
-  startSpawningTiles = async () => {
-    while (true) {
-      await delay(1000)
+  startGame = () => {
+    this.isPlaying = true
+    this._startDifficultyCycle()
+    this._startSpawningTilesCycle()
+  }
+
+  getIsPlaying = () => {
+    return this.isPlaying
+  }
+
+  _startSpawningTilesCycle = async () => {
+    while (this.isPlaying) {
+      await delay(1000 - this.difficulty)
       this._startRandomTile()
     }
+  }
+
+  _startDifficultyCycle = async () => {
+    while (this.isPlaying) {
+      await delay(50)
+      this.difficulty += 100
+    }
+  }
+
+  incrementScore = () => {
+    this.score ++
+  }
+
+  popOneHeart = () => {
+    this.hearts --
   }
 
   _startRandomTile = () => {

@@ -1,4 +1,4 @@
-import React, { PropTypes, StyleSheet, View } from 'react-native'
+import React, { PropTypes, StyleSheet, Text, View } from 'react-native'
 import { observer } from 'mobx-react'
 import Tile from '../components/Tile'
 import { BOARD_ROWS, BOARD_COLUMNS } from '../config/board'
@@ -11,8 +11,8 @@ export default class GameBoard extends React.Component {
   }
 
   componentDidMount () {
-    const { startSpawningTiles } = this.props.gameStore
-    startSpawningTiles()
+    const { startGame } = this.props.gameStore
+    startGame()
   }
 
   _handleTilePress = (tile) => {
@@ -25,12 +25,14 @@ export default class GameBoard extends React.Component {
   }
 
   render () {
-    const { tiles } = this.props.gameStore
+    const { tiles, score, hearts } = this.props.gameStore
     return (
       <View style={styles.container}>
+        <Text>{score}</Text>
         <View style={styles.board}>
           {tiles.map(this._renderTile)}
         </View>
+        <Text>{hearts}</Text>
       </View>
     )
   }

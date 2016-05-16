@@ -40,7 +40,7 @@ export default class Tile extends React.Component {
     const perspective = CELL_SIZE * 8
     const rotateX = this.state.tilt.interpolate({
       inputRange: [0, 1],
-      outputRange: ['0deg', '-30deg']
+      outputRange: ['0deg', '-40deg']
     })
     const tileStyle = {
       position: 'absolute',

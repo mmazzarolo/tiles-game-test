@@ -1,22 +1,20 @@
 {
-  "extends": ["standard", "standard-jsx"],
-  "globals": {
-    "fetch": true,
-    "__DEV__": true
-  },
+  "extends": airbnb-base,
+  "globals": { "fetch": true, "__DEV__": true },
   "parser": "babel-eslint",
   "plugins": ["import"],
   "rules": {
-    "no-unused-vars": 1,
     "arrow-parens": 0,
-    "import/default": 2,
-    "import/named": 2,
-    "import/namespace": 2,
+    "comma-dangle": [2, "never"],
+    "new-cap": 0,
+    "no-console": 0,
+    "no-param-reassign": 1,
+    "no-use-before-define": 0,
+    "no-underscore-dangle": 0,
+    "semi": [2, "never"],
+    "space-before-function-paren": [2, "always"],
+    "react/jsx-boolean-value": 0,
     "import/no-unresolved": [2, { ignore: ['\.png$'] }],
-    "import/export": 2,
-    "import/no-duplicates": 2,
-    "import/imports-first": 2,
-    "react/jsx-boolean-value": 0
   },
   "settings": {
     "import/ignore": [
