@@ -1,0 +1,5 @@
+export const STARTING_HEARTS = 6
+export const STARTING_SCORE = 0
+export const STARTING_DIFFICULTY = 1
+export const DIFFICULTY_INCREMENT_STEP = 1
+export const DIFFICULTY_CYCLE_MILLISECONDS = 4000

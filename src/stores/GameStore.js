@@ -3,12 +3,19 @@ import _ from 'lodash/fp'
 import Tile from '../models/TileModel'
 import { BOARD_ROWS, BOARD_COLUMNS } from '../config/board'
 import { times, delay } from '../utils'
+import {
+  STARTING_HEARTS,
+  STARTING_SCORE,
+  STARTING_DIFFICULTY,
+  DIFFICULTY_INCREMENT_STEP,
+  DIFFICULTY_CYCLE_MILLISECONDS
+} from '../config/game'
 
 export default class GameStore {
   @observable tiles = []
-  @observable score = 0
-  @observable hearts = 5
-  @observable difficulty = 100
+  @observable hearts = STARTING_HEARTS
+  @observable score = STARTING_SCORE
+  @observable difficulty = STARTING_DIFFICULTY
   @observable isPlaying = false
 
   constructor () {
@@ -24,25 +31,25 @@ export default class GameStore {
 
   startGame = () => {
     this.isPlaying = true
-    this._startDifficultyCycle()
-    this._startSpawningTilesCycle()
+    this.startDifficultyCycle()
+    this.startSpawningTilesCycle()
   }
 
   getIsPlaying = () => {
     return this.isPlaying
   }
 
-  _startSpawningTilesCycle = async () => {
+  startSpawningTilesCycle = async () => {
     while (this.isPlaying) {
-      await delay(1000 - this.difficulty)
-      this._startRandomTile()
+      await delay(1000 - (100 * this.difficulty))
+      this.startRandomTile()
     }
   }
 
-  _startDifficultyCycle = async () => {
+  startDifficultyCycle = async () => {
     while (this.isPlaying) {
-      await delay(50)
-      this.difficulty += 100
+      await delay(DIFFICULTY_CYCLE_MILLISECONDS)
+      this.difficulty += DIFFICULTY_INCREMENT_STEP
     }
   }
 
@@ -54,13 +61,13 @@ export default class GameStore {
     this.hearts --
   }
 
-  _startRandomTile = () => {
-    const emptyTiles = this._getEmptyTiles()
+  startRandomTile = () => {
+    const emptyTiles = this.getEmptyTiles()
     const randomEmptyTile = emptyTiles[_.random(0, emptyTiles.length - 1)]
     if (randomEmptyTile) this.tiles[randomEmptyTile.id].start()
   }
 
-  _getEmptyTiles = () => {
+  getEmptyTiles = () => {
     return _.filter(['isActive', false])(this.tiles)
   }
 

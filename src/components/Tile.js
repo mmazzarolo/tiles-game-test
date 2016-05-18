@@ -31,12 +31,24 @@ export default class Tile extends React.Component {
     // this.props.onPress(this.props.id)
   }
 
-  render () {
-    console.log(`render tile ${this.props.id}`)
-    const { id, col, row, isActive } = this.props
+  _renderEmptyTile = () => {
+    const { col, row } = this.props
+    const tileStyle = {
+      position: 'absolute',
+      left: col * CELL_SIZE + CELL_PADDING,
+      top: row * CELL_SIZE + CELL_PADDING,
+      width: TILE_SIZE,
+      height: TILE_SIZE,
+      borderRadius: BORDER_RADIUS
+    }
 
-    if (!isActive) return null
+    return (
+      <Animated.View style={tileStyle} onStartShouldSetResponder={this._handleTap} />
+    )
+  }
 
+  _renderFullTile = () => {
+    const { id, col, row } = this.props
     const perspective = CELL_SIZE * 8
     const rotateX = this.state.tilt.interpolate({
       inputRange: [0, 1],
@@ -61,6 +73,12 @@ export default class Tile extends React.Component {
         <Text style={styles.text}>{id}</Text>
       </Animated.View>
     )
+  }
+
+  render () {
+    console.log(`render tile ${this.props.id}`)
+    const { isActive } = this.props
+    return isActive ? this._renderFullTile() : this._renderEmptyTile()
   }
 }
 
